@@ -1,0 +1,60 @@
+ <!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue.js Components Fundamentals</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <style>
+        
+        .field{
+            /* cursor: pointer; */
+            /* text-align: center; */
+        }
+
+
+    </style>
+
+
+    <!-- <body class="bg-dark text-center"> -->
+    <body class="text-center">
+
+        <div id="app" class="container-fluid" m-5>
+
+            <div class="field bg-info my-4 mx-2 p-3 lead">
+                {{ currentWord }}
+             </div>
+
+             <field v-for="item in fields" :title='item[0]' :text='item[1]'></field>
+
+             <button @click="random()">clique moi</button>
+        </div>
+
+        <script type="text/x-template" id="field-template">
+
+            <div v-if="text === ''" class="font-italic text-light bg-secondary m-2 p-3 bg-opacity-50">
+                {{ title }}
+            </div>
+
+            <div v-else @click="revealed = !revealed" class="field m-2 p-3" :class="{'bg-primary': !revealed, 'bg-success field': revealed}">
+
+                <span v-if="!revealed">
+                    {{ title }}
+                </span>
+                <span v-else>
+                    {{ text }}
+                </span>
+            </div>
+        </script>
+
+
+        <script src="https://unpkg.com/vue@3"></script>
+        <script src="field.js"></script>
+    </body>
+
+
+ </html>
