@@ -1,11 +1,9 @@
-
-
 let FieldComponent = {
 
     template: '#field-template',
 
     props: {    title: {type: String, required: true},
-                text: {type: String, required: true}
+                text:  {type: String, required: true}
             },
     watch: {    text: function(){
                     this.revealed = false }
@@ -19,80 +17,83 @@ let FieldComponent = {
 }
 
 
-
 Vue.createApp({
 
     components: {Field: FieldComponent},
 
     data() {
         return {
-
-            fields: [['Translation',    ''],
-                     ['Synonym',        ''],
-                     ['Context',        ''],
-                     ['Comment',        '']],
-
-            currentWord: '',
+           
+            // words: [{   Word:         '',
+            //             Translation:  '',
+            //             Synonym:      '',
+            //             Context:      '',
+            //             Comment:      ''}],
             words: [],
             previous: [],
-            history: []
+            history: [],
+
+            currentIndex: 0,
+            display: 0
         }
     },
+
     methods: {
+
         random(){
 
             while(true){
 
-                const i = Math.floor(Math.random() * this.words.length)
+                const index = Math.floor(Math.random() * this.words.length -1)
 
                 // Checks if already worked
-                if (this.previous.includes(i)){
+                if (this.previous.includes(index)){
                     if (this.previous.length >= this.words.length){
                         this.previous = []
                     }
                 }else{
-                    this.previous.push(i)
+                    this.previous.push(index)
 
                     // Saves history
-                    if (!this.history.includes(this.words[i])){
-                        this.history.push(this.words[i])
+                    if (!this.history.includes(index)){
+                        this.history.push(index)
                     }
 
-                    // Affects
-                    this.currentWord = this.words[i][0]
-
-                    for (let j=0; j < this.fields.length; j++){
-                        this.fields[j][1] = this.words[i][j+1]
-                    }
-
+                    this.currentIndex = index
                     break
                 }
             }
         }
 
     },
-    created() {
 
-        fetch('https://raw.githubusercontent.com/FLinguenheld/vocabulary/main/vocabulary.csv')
-        .then((response) => response.text())
-        .then((txt) => {
+    async created() {
 
-                const lines = txt.split('\n')
+        try {
+            const response = await fetch('https://raw.githubusercontent.com/FLinguenheld/vocabulary/main/vocabulary.csv')
+            const r = await response.text()
 
-                for (let i = 1; i < lines.length -1; i++) {
-                    this.words[i-1] = lines[i].split(',')
-                }
+            // this.words = []
+            for (const line of r.split('\n')){
 
-                // Sorts for easy list
-                this.words.sort((a, b)=> a[0].localeCompare(b[0]))
+                const txt = line.split(',')
 
-                // Set the first word
-                this.random()
-            })
-        .catch((error) =>{
+                this.words.push({
+                    Word:         txt[0],
+                    Translation:  txt[1],
+                    Synonym:      txt[2],
+                    Context:      txt[3],
+                    Comment:      txt[4]})
+            }
+
+            // Sorts for the method list and first random
+            this.words.sort((a, b)=> a.Word.localeCompare(b.Word))
+            this.random()
+
+        } catch (error)	{
             console.log(error)
-            this.currentWord = "Impossible d'accéder aux données"
-        })
+            this.display = -1
+        }
     }
 })
 

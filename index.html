@@ -6,7 +6,12 @@
         <meta charset="UTF-8">
         <title>Vue.js Components Fundamentals</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+                               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                               crossorigin="anonymous">
+
+
+
     </head>
 
     <style>
@@ -16,23 +21,54 @@
             /* text-align: center; */
         }
 
-
     </style>
 
 
     <!-- <body class="bg-dark text-center"> -->
     <body class="text-center">
 
-        <div id="app" class="container-fluid" m-5>
 
-            <div class="field bg-info my-4 mx-2 p-3 lead">
-                {{ currentWord }}
+
+        <div id="app">
+
+            <div v-if="display===-1">
+                 Impossible d'accèder aux données
              </div>
 
-             <field v-for="item in fields" :title='item[0]' :text='item[1]'></field>
+            <div v-if="display===0" class="container-fluid bg-dark">
+                <div class="bg-info my-4 mx-2 p-3 lead">
+                    {{ words[currentIndex].Word }}
+                </div>
 
-             <button @click="random()">clique moi</button>
+                <field title="Translation"  :text="words[currentIndex].Translation"></field>
+                <field title="Synonym"      :text="words[currentIndex].Synonym"></field>
+                <field title="Context"      :text="words[currentIndex].Context"></field>
+                <field title="Comment"      :text="words[currentIndex].Comment"></field>
+
+                <button @click="random()">Next</button>
+                <button @click="display=1">List</button>
+                <button @click="display=2">History</button>
+             </div>
+
+            <div v-else-if="display===1" @click="display=0" class="container-fluid bg-dark">
+
+                <div class="bg-info m-5 p-1 border">
+                    <div v-for="(item, index) in words" @click="currentIndex=index" class="bg-success">{{ item.Word }}</div>
+                 </div>
+
+             </div>
+
+            <div v-else-if="display===2" @click="display=0" class="container-fluid bg-dark">
+
+                <div class="bg-info m-5 p-1 border">
+                    <div v-for="index in history" @click="currentIndex=index" class="bg-success">{{ words[index].Word }}</div>
+                 </div>
+
+             </div>
+
         </div>
+
+
 
         <script type="text/x-template" id="field-template">
 
@@ -40,7 +76,7 @@
                 {{ title }}
             </div>
 
-            <div v-else @click="revealed = !revealed" class="field m-2 p-3" :class="{'bg-primary': !revealed, 'bg-success field': revealed}">
+            <div v-else @click="revealed = !revealed" class="m-2 p-3" :class="{'bg-primary': !revealed, 'bg-success': revealed}">
 
                 <span v-if="!revealed">
                     {{ title }}
@@ -54,7 +90,15 @@
 
         <script src="https://unpkg.com/vue@3"></script>
         <script src="field.js"></script>
+
     </body>
+
+
+
+
+
+
+
 
 
  </html>
