@@ -25,13 +25,13 @@
 
                 <!-- Main -->
                 <div v-else-if="display===0" class="container-fluid bg-dark">
-                    <h4 class="bg-word my-4 mx-2 p-3">
+                    <h5 class="bg-word my-4 mx-2 p-3">
                         {{ words[currentIndex].Word }} 
 
-                         <small if="words[currentIndex].Type !== ''" class="h6 text-black-50">
+                         <small v-if="words[currentIndex].Type !== ''" class="h6 text-black-50">
                              ({{ words[currentIndex].Type }})
                          </small>
-                    </h4>
+                    </h5>
 
                     <field title="Translation"  :text="words[currentIndex].Translation"></field>
                     <field title="Synonym"      :text="words[currentIndex].Synonym"></field>
@@ -39,7 +39,7 @@
                     <field title="Comment"      :text="words[currentIndex].Comment"></field>
 
                     <!-- Buttons -->
-                    <div class="container mx-auto mt-5 p-1 h2 text-center cursor-pointer button-icon">
+                    <div class="container mx-auto mt-4 p-1 h2 text-center cursor-pointer button-icon">
                         <span class="row">
                             <span @click="invert()" class="col-2 py-2"><i class="bi bi-shuffle"></i></span>
                             <span @click="display=1" class="col-2 py-2"><i class="bi bi-book"></i></span>
