@@ -52,7 +52,7 @@
 
                 <!-- List -->
                 <div v-else-if="display===1" @click="display=0" class=" data-bs-slide container-fluid bg-dark">
-                        <div class="bg-dark col-list m-5 p-1">
+                        <div class="bg-dark col-list m-4 p-1">
                             <div v-for="(item, index) in words" class="elem-list cursor-pointer" @click="currentIndex=index">
                                  {{ item.Word }}
                              </div>
@@ -61,7 +61,7 @@
 
                 <!-- History -->
                 <div v-else-if="display===2" @click="display=0" class="container-fluid bg-dark" tabindex="-1">
-                    <div class="bg-dark col-history m-5 p-1">
+                    <div class="bg-dark col-history m-4 p-1">
                         <div v-for="index in history" class="elem-history cursor-pointer" @click="currentIndex=index">
                              {{ words[index].Word }}
                         </div>
