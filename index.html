@@ -25,9 +25,13 @@
 
                 <!-- Main -->
                 <div v-else-if="display===0" class="container-fluid bg-dark">
-                    <div class="bg-word my-4 mx-2 p-3 h4">
-                        {{ words[currentIndex].Word }}
-                    </div>
+                    <h4 class="bg-word my-4 mx-2 p-3">
+                        {{ words[currentIndex].Word }} 
+
+                         <small if="words[currentIndex].Type !== ''" class="h6 text-black-50">
+                             ({{ words[currentIndex].Type }})
+                         </small>
+                    </h4>
 
                     <field title="Translation"  :text="words[currentIndex].Translation"></field>
                     <field title="Synonym"      :text="words[currentIndex].Synonym"></field>
@@ -48,8 +52,8 @@
 
                 <!-- List -->
                 <div v-else-if="display===1" @click="display=0" class=" data-bs-slide container-fluid bg-dark">
-                        <div class="bg-list m-5 p-1">
-                            <div v-for="(item, index) in words" class="bg-list" @click="currentIndex=index">
+                        <div class="bg-dark col-list m-5 p-1">
+                            <div v-for="(item, index) in words" class="elem-list cursor-pointer" @click="currentIndex=index">
                                  {{ item.Word }}
                              </div>
                          </div>
@@ -57,8 +61,8 @@
 
                 <!-- History -->
                 <div v-else-if="display===2" @click="display=0" class="container-fluid bg-dark" tabindex="-1">
-                    <div class="bg-history m-5 p-1">
-                        <div v-for="index in history" class="bg-history" @click="currentIndex=index">
+                    <div class="bg-dark col-history m-5 p-1">
+                        <div v-for="index in history" class="elem-history cursor-pointer" @click="currentIndex=index">
                              {{ words[index].Word }}
                         </div>
                      </div>

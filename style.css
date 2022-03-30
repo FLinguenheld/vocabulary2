@@ -4,10 +4,23 @@
 .bg-field {             background-color: #90BE6D;}
 .bg-field-revelated {   background-color: #F9C74F;}
 
-.bg-history {           background-color: #90BE6D;}
-.bg-history:hover {     background-color: #F9C74F;}
-.bg-list {              background-color: #F9C74F;}
-.bg-list:hover {        background-color: #90BE6D;}
-
 .cursor-pointer {       cursor: pointer;}
 .button-icon {          color: #43AA8B;}
+
+
+.col-list {             color: #43AA8B;
+                        border: solid 0.1em;
+                        border-color: #43AA8B;}
+
+.elem-list:hover {      color: white;
+                        font-size: 1.2em;
+                        background-color: #43AA8B;}
+
+
+.col-history {          color: #90BE6D;
+                        border: solid 0.1em;
+                        border-color: #90BE6D;}
+
+.elem-history:hover {   color: white;
+                        font-size: 1.2em;
+                        background-color: #90BE6D;}

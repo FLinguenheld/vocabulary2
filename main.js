@@ -1,3 +1,4 @@
+// ---−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−
 let FieldComponent = {
 
     template: '#field-template',
@@ -16,10 +17,11 @@ let FieldComponent = {
     }
 }
 
-
+// ---−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−
 Vue.createApp({
 
-    components: {Field: FieldComponent},
+    components: {Field: FieldComponent
+    },
 
     data() {
         return {
@@ -30,6 +32,7 @@ Vue.createApp({
             previous: [],
             history: [],
             words: [{   Word:         '',
+                        Type:         '',
                         Translation:  '',
                         Synonym:      '',
                         Context:      '',
@@ -45,14 +48,17 @@ Vue.createApp({
 
     methods: {
 
+        // As words list is already sorted, we just need to sort indexes
         sortHistory(){
-            // As words list is already sorted, we just need to sort indexes
             this.history.sort(function(a, b) {
               return a - b;
             });
         },
 
+        // Allows to switch between English/French
+        // Inverts Word and Translation in the array
         invert(){
+
             // Saves the current word to find after inversion
             const currentWord = this.words[this.currentIndex].Word
 
@@ -77,6 +83,7 @@ Vue.createApp({
             }
         },
 
+        // Sets a new current index
         random(){
 
             while(true){
@@ -113,10 +120,11 @@ Vue.createApp({
 
                 this.words.push({
                     Word:         txt[0],
-                    Translation:  txt[1],
-                    Synonym:      txt[2],
-                    Context:      txt[3],
-                    Comment:      txt[4]})
+                    Type:         txt[1],
+                    Translation:  txt[2],
+                    Synonym:      txt[3],
+                    Context:      txt[4],
+                    Comment:      txt[5]})
             }
 
             // Removes titles and the last (empty line)
