@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 
 <!-- <html lang="en" class="container-fluid"> -->
 <html lang="en" class="bg-dark">
@@ -45,8 +45,10 @@
                             <span @click="invert()" class="col-2 py-2"><i class="bi bi-shuffle"></i></span>
                             <span @click="display=1" class="col-2 py-2"><i class="bi bi-book"></i></span>
                             <span @click="sortHistory(), display=2" class="col-2 py-2"><i class="bi bi-clipboard2-check"></i></span>
-
-                            <span @click="random()" class="col-6 py-2 h2"><i class="bi bi-arrow-right-square"></i></span>
+                            <span @click="backward()" class="col-3 py-2 h2" :class="{'text-muted': previousCursor<=0}">
+                                <i class="bi bi-arrow-left-square"></i>
+                            </span>
+                            <span @click="forward()" class="col-3 py-2 h2"><i class="bi bi-arrow-right-square"></i></span>
                         </span>
                      </div>
                  </div>

@@ -26,11 +26,13 @@ Vue.createApp({
     data() {
         return {
 
-            display: 0,
-            currentIndex: 0,
+            display: 0,                     // Display mods to show error / List / history
+            currentIndex: 0,                // Index of the current word in 'words' array
+            previousCursor: -1,             // Use to navigate in the 'previous' array
 
-            previous: [],
-            history: [],
+            previous: [],                   // Saves all previous word's indexes (allows to come back and invert)
+            history: [],                    // Saves all previous but without duplicates nor order
+
             words: [{   Word:         '',
                         Type:         '',
                         Translation:  '',
@@ -49,7 +51,43 @@ Vue.createApp({
 
     methods: {
 
+        isObjectEmpty(someObject){
+          return !(Object.keys(someObject).length)
+        },
+
+        // One step behind - Move the previousCursor to change the currentIndex
+        backward(){
+            if(this.previousCursor > 0){
+                this.previousCursor -= 1
+                this.currentIndex = this.previous[this.previousCursor]
+            }
+        },
+
+        // One step ahead - Randomises a new word if needed
+        //                  or just move the previous cursor
+        forward(){
+
+            if(this.previousCursor == this.previous.length - 1){
+
+                // Select a new index and puts it in previous
+                while(true){
+                    const index = Math.floor(Math.random() * this.words.length)
+
+                    // Checks if already worked
+                    if (!this.previous.includes(index) || this.previous.length >= this.words.length){
+                        this.previous.push(index)
+                        break
+                    }
+                }
+            }
+
+            // Then shifts the cursor and updates the current index
+            this.previousCursor += 1
+            this.currentIndex = this.previous[this.previousCursor]
+        },
+
         // As words list is already sorted, we just need to sort indexes
+        // Method created to not sort for each new word
         sortHistory(){
             this.history.sort(function(a, b) {
               return a - b;
@@ -83,25 +121,6 @@ Vue.createApp({
                 }
             }
         },
-
-        // Sets a new current index
-        random(){
-
-            while(true){
-                const index = Math.floor(Math.random() * this.words.length)
-
-                // Checks if already worked
-                if (this.previous.includes(index)){
-                    if (this.previous.length >= this.words.length){
-                        this.previous = []
-                    }
-                }else{
-                    this.previous.push(index)
-                    this.currentIndex = index
-                    break
-                }
-            }
-        }
     },
 
     async created() {
@@ -135,7 +154,7 @@ Vue.createApp({
 
             // Sorts for the method list and first random
             this.words.sort((a, b)=> a.Word.localeCompare(b.Word))
-            this.random()
+            this.forward()
 
         } catch (error)	{
             console.log(error)
