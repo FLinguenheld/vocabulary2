@@ -1,0 +1,13 @@
+/* https://coolors.co/palette/f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590 */
+
+.bg-word {              background-color: #43AA8B;}
+.bg-field {             background-color: #90BE6D;}
+.bg-field-revelated {   background-color: #F9C74F;}
+
+.bg-history {           background-color: #90BE6D;}
+.bg-history:hover {     background-color: #F9C74F;}
+.bg-list {              background-color: #F9C74F;}
+.bg-list:hover {        background-color: #90BE6D;}
+
+.cursor-pointer {       cursor: pointer;}
+.button-icon {          color: #43AA8B;}
