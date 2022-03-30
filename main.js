@@ -36,6 +36,7 @@ Vue.createApp({
                         Translation:  '',
                         Synonym:      '',
                         Context:      '',
+                        Example:      '',
                         Comment:      ''}]
         }
     },
@@ -124,7 +125,8 @@ Vue.createApp({
                     Translation:  txt[2],
                     Synonym:      txt[3],
                     Context:      txt[4],
-                    Comment:      txt[5]})
+                    Example:      txt[5],
+                    Comment:      txt[6]})
             }
 
             // Removes titles and the last (empty line)
