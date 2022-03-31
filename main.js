@@ -26,13 +26,11 @@ Vue.createApp({
     data() {
         return {
 
-            display: 0,                     // Display mods to show error / List / history
-            currentIndex: 0,                // Index of the current word in 'words' array
-            previousCursor: -1,             // Use to navigate in the 'previous' array
+            display: 0,                     // Displays mods to show error / List / history
+            currentIndex: 0,                // Index of the current word in 'words' array -> used in html
+            historyCursor: -1,              // Uses to navigate in the 'history' array
 
-            previous: [],                   // Saves all previous word's indexes (allows to come back and invert)
-            history: [],                    // Saves all previous but without duplicates nor order
-
+            history: [],                    // Saves all indexes and respects the order
             words: [{   Word:         '',
                         Type:         '',
                         Translation:  '',
@@ -43,83 +41,87 @@ Vue.createApp({
         }
     },
 
+    // Updates history on each new currentIndex
     watch: {currentIndex: function(i){
-                    if (!this.history.includes(i)){
-                        this.history.push(i) }
+
+                    // Removes if already saved to avoid repetitions
+                    if (this.history.includes(i)){
+                        this.history.splice(this.history.indexOf(i), 1)
+                    }
+
+                    this.history.splice(this.historyCursor, 0, i)
                 } 
             },
 
     methods: {
 
-        isObjectEmpty(someObject){
-          return !(Object.keys(someObject).length)
-        },
-
-        // One step behind - Move the previousCursor to change the currentIndex
+        // One step behind - Move the historyCursor in history and Updates currentIndex
         backward(){
-            if(this.previousCursor > 0){
-                this.previousCursor -= 1
-                this.currentIndex = this.previous[this.previousCursor]
+            if(this.historyCursor > 0){
+                this.historyCursor -= 1
+                this.currentIndex = this.history[this.historyCursor]
             }
         },
 
-        // One step ahead - Randomises a new word if needed
-        //                  or just move the previous cursor
+        // One step ahead - Moves the history cursor
+        //                  Randomises a new word if needed
         forward(){
 
-            if(this.previousCursor == this.previous.length - 1){
+            this.historyCursor += 1
 
-                // Select a new index and puts it in previous
+            if(this.historyCursor == this.history.length){
+
+                // Finds a new index
                 while(true){
                     const index = Math.floor(Math.random() * this.words.length)
 
-                    // Checks if already worked
-                    if (!this.previous.includes(index) || this.previous.length >= this.words.length){
-                        this.previous.push(index)
+                    // Checks if already worked (history's update done in 'watch')
+                    if (!this.history.includes(index) || this.history.length >= this.words.length){
+                        this.currentIndex = index
                         break
                     }
                 }
+            } else{
+                this.currentIndex = this.history[this.historyCursor]
             }
-
-            // Then shifts the cursor and updates the current index
-            this.previousCursor += 1
-            this.currentIndex = this.previous[this.previousCursor]
         },
 
-        // As words list is already sorted, we just need to sort indexes
-        // Method created to not sort for each new word
-        sortHistory(){
-            this.history.sort(function(a, b) {
-              return a - b;
-            });
+        // Creates a temporary array to create and sort history
+        sortedHistory(){
+
+            let tempHistory = [...this.history]
+            tempHistory.sort((a, b)=> this.words[a].Word.localeCompare(this.words[b].Word))
+
+            return tempHistory
         },
 
         // Allows to switch between English/French
-        // Inverts Word and Translation in the array
+        // Inverts Word and Translation in words' array
+        // Converts history and the current index
         invert(){
 
-            // Saves the current word to find after inversion
-            const currentWord = this.words[this.currentIndex].Word
-
-            // Inverts all the words then sorts
+            // Inverts all words
             for(let elem of this.words){
                 const w = elem.Word
                 elem.Word = elem.Translation
                 elem.Translation = w
             }
 
+            // Temp
+            const tempWords = [...this.words]
+            const tempHistory = [...this.history]
+
+            // Sorts by word and clears history
             this.words.sort((a, b)=> a.Word.localeCompare(b.Word))
+            this.history = []
 
-            // Finds the current, erases history/previous and saves the new index
-            for (let i in this.words){
-
-                if (this.words[i].Translation === currentWord){
-                    this.history = [i]
-                    this.previous = [i]
-                    this.currentIndex = i
-                    break
-                }
+            // Converts history to new words
+            for (const oldIndex of tempHistory){
+                this.history.push(this.words.indexOf(tempWords[oldIndex]))
             }
+
+            // Replaces the current index
+            this.currentIndex = this.history[this.historyCursor]
         },
     },
 
