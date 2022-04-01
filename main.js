@@ -146,8 +146,8 @@ Vue.createApp({
                     Translation:  txt[2],
                     Synonym:      txt[3],
                     Context:      txt[4],
-                    Example:      txt[5],
-                    Comment:      txt[6]})
+                    Comment:      txt[5],
+                    Example:      txt.slice(5, txt.length).join(',')})
             }
 
             // Removes titles and the last (empty line)
