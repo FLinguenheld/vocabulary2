@@ -50,7 +50,7 @@ Vue.createApp({
                     }
 
                     this.history.splice(this.historyCursor, 0, i)
-                } 
+                }
             },
 
     methods: {
@@ -86,7 +86,7 @@ Vue.createApp({
             }
         },
 
-        // Creates a temporary array to create and sort history
+        // Creates a temporary array to build and sort history
         sortedHistory(){
 
             let tempHistory = [...this.history]
