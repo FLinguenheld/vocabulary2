@@ -36,8 +36,8 @@ Vue.createApp({
                         Translation:  '',
                         Synonym:      '',
                         Context:      '',
-                        Example:      '',
-                        Comment:      ''}]
+                        Comment:      '',
+                        Example:      ''}]
         }
     },
 
