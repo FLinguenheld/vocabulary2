@@ -1,5 +1,4 @@
-/* https://coolors.co/palette/f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590 */
-
+/* <---------------------------------------------------------> */
 .bg-word {              background-color: #43AA8B;}
 .bg-field {             background-color: #90BE6D;}
 .bg-field-revelated {   background-color: #F9C74F;}
@@ -10,8 +9,9 @@
 
 
 .col-list {             color: #43AA8B;
-                        border: solid 0.1em;
                         border-color: #43AA8B;}
+
+.border-list {          border: solid 0.1em;}
 
 .elem-list:hover {      color: white;
                         font-size: 1.2em;
@@ -19,10 +19,27 @@
 
 
 .col-history {          color: #90BE6D;
-                        border: solid 0.1em;
                         border-color: #90BE6D;}
+
+.border-history {       border: solid 0.1em;}
 
 .elem-history:hover {   color: white;
                         font-size: 1.2em;
                         background-color: #90BE6D;}
 
+/* https://coolors.co/palette/f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590 */
+/* <---------------------------------------------------------> */
+html { font-size: 1rem; }
+
+@media (min-width: 576px) {
+    html { font-size: 1.2rem; }
+}
+@media (min-width: 768px) {
+    html { font-size: 1.4rem; }
+}
+@media (min-width: 992px) {
+    html { font-size: 1.6rem; }
+}
+@media (min-width: 1200px) {
+    html { font-size: 1.8rem; }
+}
