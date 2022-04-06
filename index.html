@@ -40,25 +40,24 @@
                     <field title="Comment"      :text="words[currentIndex].Comment"></field>
 
                     <!-- Buttons -->
-                    <div class="container-fluid mt-4 p-0">
-                        <span class="row mx-auto p-0 m-0">
+                    <div class="container-fluid m-0 p-0 mt-4">
+                        <span class="row m-auto p-0">
 
-                            <span class="col-5 h3 p-0 m-0">
-                                <span @click="invert()"  class="p-1 p-sm-2 p-lg-3 cursor-pointer button-icon"><i class="bi bi-shuffle">          </i></span>
-                                <span @click="display=1" class="p-1 p-sm-2 p-lg-3 cursor-pointer button-icon"><i class="bi bi-book">             </i></span>
-                                <span @click="display=2" class="p-1 p-sm-2 p-lg-3 cursor-pointer button-icon"><i class="bi bi-clipboard2-check"> </i></span>
+                            <span class="col-4 no-gutters h2 m-auto p-0">
+                                <span @click="invert()"  class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-shuffle">          </i></span>
+                                <span @click="display=1" class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-book">             </i></span>
+                                <span @click="display=2" class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-clipboard2-check"> </i></span>
                             </span>
 
-                            <span class="col-7 p-0 m-0">
-                                <span @click="backward()" class="h3 p-1 p-sm-2 p-md-3 px-sm-2 cursor-pointer button-icon" :class="{'text-muted': historyCursor<=0}">
+                            <span @click="backward()" class="col-3 cursor-pointer button-icon m-auto"
+                                                     :class="{'text-muted': historyCursor<=0}">
                                     <span v-show="historyCursor>0" class="h5 p-1">{{historyCursor}}</span>
-                                    <i class="bi bi-arrow-left-square"></i>
-                                </span>
-
-                                <span @click="forward()"  class="h2 p-1 p-sm-2 p-md-3 cursor-pointer button-icon" :class="{'button-icon-forward': historyCursor==history.length-1}">
-                                    <i class="bi bi-arrow-right-square"></i>
-                                    <span v-show="history.length-1-historyCursor>0" class="h4 p-1"> {{history.length-1 - historyCursor}}</span>
-                                </span>
+                                    <i class="h2 bi bi-arrow-left-square"></i>
+                            </span>
+                            <span @click="forward()" class="col-4 cursor-pointer button-icon m-auto"
+                                                    :class="{'button-icon-forward': historyCursor==history.length-1}">
+                                    <i class="h1 bi bi-arrow-right-square"></i>
+                                    <span v-show="history.length-1-historyCursor>0" class="p-1 h4"> {{history.length-1 - historyCursor}}</span>
                             </span>
 
                         </span>
