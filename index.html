@@ -43,21 +43,21 @@
                     <div class="container-fluid m-0 p-0 mt-4">
                         <span class="row m-auto p-0">
 
-                            <span class="col-4 no-gutters h3 m-auto p-0">
+                            <span class="col-4 no-gutters h2 m-auto p-0">
                                 <span @click="invert()"  class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-shuffle">          </i></span>
                                 <span @click="display=1" class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-book">             </i></span>
                                 <span @click="display=2" class="p-1 p-md-2 cursor-pointer button-icon"><i class="bi bi-clipboard2-check"> </i></span>
                             </span>
 
-                            <span @click="backward()" class="col-3 cursor-pointer button-icon m-auto"
+                            <span @click="backward()" class="col-4 cursor-pointer button-icon m-auto p-0"
                                                      :class="{'text-muted': historyCursor<=0}">
-                                    <span v-show="historyCursor>0" class="h5 p-1">{{historyCursor}}</span>
-                                    <i class="h3 bi bi-arrow-left-square"></i>
+                                    <span v-show="historyCursor>0" class="p-1">{{historyCursor}}</span>
+                                    <i class="h1 bi bi-arrow-left-square"></i>
                             </span>
-                            <span @click="forward()" class="col-4 cursor-pointer button-icon m-auto"
+                            <span @click="forward()" class="col-4 cursor-pointer button-icon m-auto p-0"
                                                     :class="{'button-icon-forward': historyCursor==history.length-1}">
                                     <i class="h1 bi bi-arrow-right-square"></i>
-                                    <span v-show="history.length-1-historyCursor>0" class="p-1 h4"> {{history.length-1 - historyCursor}}</span>
+                                    <span v-show="history.length-1-historyCursor>0" class="p-1"> {{history.length-1 - historyCursor}}</span>
                             </span>
 
                         </span>
