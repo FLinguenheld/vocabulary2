@@ -8,7 +8,7 @@ Aide pour retenir mon vocabulaire ᕙ(⇀‸↼‶)ᕗ
 Version 2 avec vue.js & bootstrap
 
 #### 1. Installation
-Utiliser un serveur apache puis cloner le repo:
+Utilisez un serveur apache puis cloner le repo:
 >git clone https://github.com/FLinguenheld/vocabulary2
 
 Maj régulièrement le fichier *vocabulary.csv*
